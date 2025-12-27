@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
+    "clean": "find . -type f \\( -name '*.js' -o -name '*.d.ts' -o -name '*.map' \\) | grep -v './node_modules' | xargs rm",
     "run": "pnpm build && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
