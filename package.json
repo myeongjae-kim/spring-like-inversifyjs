@@ -1,0 +1,24 @@
+{
+  "name": "learn-inversifyjs",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "run": "pnpm build && node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.22.0",
+  "dependencies": {
+    "inversify": "^7.10.8",
+    "reflect-metadata": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/inversify": "^2.0.33",
+    "typescript": "^5.9.3"
+  }
+}
