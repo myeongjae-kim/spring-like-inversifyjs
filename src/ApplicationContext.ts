@@ -1,5 +1,6 @@
 import { Container } from "inversify";
-import { beanMapping, type BeanNames } from "./config/BeanMapping.js";
+import { beanConfig, type BeanNames } from "./config/BeanConfig.js";
+import { ShouldNotInitializedBean } from "./ShouldNotInitializedBean.js";
 
 export class ApplicationContext {
   private container: Container;
@@ -15,7 +16,10 @@ export class ApplicationContext {
     // this.container.bind(NinjaImpl).toSelf();
     // this.container.bind(OrdinaryPersonImpl).toSelf();
 
-    Object.entries(beanMapping).forEach(([name, service]) => this.container.bind(name).to(service));
+    Object.entries(beanConfig).forEach(([name, service]) => this.container.bind(name).to(service));
+
+    // 기본으로 lazy다. get하지 않으면 bean을 생성하지 않는다. Serverless 환경에서 사용하기 좋음.
+    this.container.bind(ShouldNotInitializedBean).toSelf();
   }
 
   public get<T extends keyof BeanNames>(serviceIdentifier: T): BeanNames[T] {

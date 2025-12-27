@@ -16,3 +16,6 @@ console.log(ordinaryPerson.hello())
 // Singleton으로 등록해야 컴포넌트를 여러 번 get해도 한 번만 생성한다 (실행했을 때 생성자에서 남기는 로그가 출력되지 않는다).
 applicationContext.get("Ninja") satisfies Ninja
 applicationContext.get("OrdinaryPerson") satisfies OrdinaryPerson
+
+// get하지 않으면 bean을 생성하지 않으므로 주석을 해제하기 전까지는 에러가 발생하지 않는다.
+// applicationContext.get(ShouldNotInitializedBean as any)
