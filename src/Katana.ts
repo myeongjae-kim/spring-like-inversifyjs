@@ -1,7 +1,11 @@
-import { injectable } from "inversify";
+import { Component } from "./config/Component.js";
 
-@injectable()
-export class Katana {
+export interface Katana {
+  readonly damage: number;
+}
+
+@Component()
+export class KatanaImpl implements Katana {
   constructor() {
     console.log("***** initialzing Katana")
   }
