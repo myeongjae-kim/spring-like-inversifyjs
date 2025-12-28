@@ -1,4 +1,4 @@
-import { inject } from "inversify";
 import type { BeanNames } from "./BeanConfig.js";
+import { returnAutowired } from "./returnAutowired.js";
 
-export const Autowired = (serviceIdentifier: keyof BeanNames) => inject(serviceIdentifier)
+export const Autowired = returnAutowired<keyof BeanNames>();

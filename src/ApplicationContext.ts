@@ -1,12 +1,10 @@
-import { Container } from "inversify";
-import { beanConfig, type BeanNames } from "./config/BeanConfig.js";
+import { Container, type Newable } from "inversify";
 import { extractScope } from "./config/extractScope.js";
-import { ShouldNotInitializedBean } from "./ShouldNotInitializedBean.js";
 
-export class ApplicationContext {
+export class ApplicationContext<Config extends Record<string, Newable<unknown>>> {
   private container: Container;
 
-  constructor() {
+  constructor(beanConfig: Config) {
     // autobind 옵션은 Spring의 Component Scan 기능과 유사하다.
     // autobind가 켜져있으면 필요한 컴포넌트를 컨테이너에 자동으로 추가한다.
     this.container = new Container({ autobind: true });
@@ -22,14 +20,11 @@ export class ApplicationContext {
         throw new Error(`Bean ${name} does not have an explicit scope. Use @Component() decorator!`);
       }
 
-      return this.container.bind(name).to(service);
+      this.container.bind(name).to(service);
     });
-
-    // 기본으로 lazy다. bean으로 등록되어 있더라도 get하지 않으면 bean을 생성하지 않는다. Serverless 환경에서 사용하기 좋음.
-    this.container.bind(ShouldNotInitializedBean).toSelf();
   }
 
-  public get<T extends keyof BeanNames>(serviceIdentifier: T): BeanNames[T] {
-    return this.container.get(serviceIdentifier);
+  public get<T extends keyof Config>(serviceIdentifier: T): InstanceType<Config[T]> {
+    return this.container.get(serviceIdentifier as string);
   }
 }

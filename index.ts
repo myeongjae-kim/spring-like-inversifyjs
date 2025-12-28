@@ -1,8 +1,9 @@
 import { ApplicationContext } from './src/ApplicationContext.js';
+import { beanConfig } from './src/config/BeanConfig.js';
 import type { Ninja } from './src/Ninja.js';
 import type { OrdinaryPerson } from './src/OrdinayPerson.js';
 
-const applicationContext = new ApplicationContext();
+const applicationContext = new ApplicationContext(beanConfig);
 
 // fyi) satisfies는 타입 캐스팅을 하지 않고 타입을 만족하는지만 확인하는 예약어
 // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator
