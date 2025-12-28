@@ -18,8 +18,8 @@ export class ApplicationContext {
     // this.container.bind(OrdinaryPersonImpl).toSelf();
 
     Object.entries(beanConfig).forEach(([name, service]) => {
-      if (extractScope(service) !== "Singleton") {
-        throw new Error(`Bean ${name} is not a singleton bean. Use @Component() decorator!`);
+      if (!extractScope(service)) {
+        throw new Error(`Bean ${name} does not have an explicit scope. Use @Component() decorator!`);
       }
 
       return this.container.bind(name).to(service);
